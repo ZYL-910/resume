@@ -954,48 +954,283 @@
             color: var(--text-light);
         }
 
-        @media (max-width: 950px) {
-            .character-panel {
-                grid-template-columns: 1fr;
-                text-align: center;
+        /* ===== 移动端适配 ===== */
+
+        /* 移动端导航 */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--accent-pink);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0 20px;
+                height: 60px;
             }
 
-            .avatar-section {
-                margin-bottom: 15px;
-            }
-
-            .skills-container {
-                grid-template-columns: 1fr;
-            }
-
-            .dungeon-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .nav-logo {
+                font-size: 18px;
             }
 
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 15px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                gap: 8px;
             }
-        }
 
-        @media (max-width: 600px) {
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-link {
+                padding: 12px 20px;
+                text-align: center;
+                border-radius: 15px;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
             .page {
-                padding: 35px 22px;
+                padding: 25px 18px;
             }
 
             .page-title {
-                font-size: 21px;
-            }
-
-            .nav {
-                padding: 0 22px;
+                font-size: 20px;
+                margin-bottom: 25px;
             }
 
             .character-panel {
-                padding: 28px;
+                grid-template-columns: 1fr;
+                padding: 25px 20px;
+                gap: 25px;
+            }
+
+            .avatar-frame {
+                width: 140px;
+                height: 140px;
+            }
+
+            .avatar-char {
+                font-size: 50px;
+            }
+
+            .badges {
+                gap: 8px;
+            }
+
+            .badge {
+                padding: 6px 14px;
+                font-size: 11px;
+            }
+
+            .stat-row {
+                padding: 14px 16px;
+                gap: 12px;
+            }
+
+            .stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+
+            .stat-value {
+                font-size: 13px;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .skill-category {
+                padding: 22px 18px;
+            }
+
+            .skill-item {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+
+            .skill-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+
+            .skill-name {
+                font-size: 13px;
+            }
+
+            .skill-type {
+                padding: 4px 10px;
+                font-size: 9px;
+            }
+
+            .adventure-timeline {
+                padding-left: 30px;
+            }
+
+            .adventure-node {
+                padding: 20px 18px;
+            }
+
+            .adventure-node::before {
+                left: -30px;
+                font-size: 14px;
+            }
+
+            .adventure-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .adventure-title {
+                font-size: 15px;
+            }
+
+            .adventure-time {
+                font-size: 11px;
+            }
+
+            .adventure-desc {
+                font-size: 13px;
+            }
+
+            .dungeon-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .dungeon-card {
+                padding: 22px 18px;
+            }
+
+            .dungeon-name {
+                font-size: 15px;
+            }
+
+            .dungeon-objective {
+                font-size: 13px;
+            }
+
+            .dungeon-rewards {
+                gap: 10px;
+            }
+
+            .dungeon-reward {
+                padding: 14px 10px;
+            }
+
+            .dungeon-reward-value {
+                font-size: 18px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .gallery-item {
+                padding: 18px 12px;
+            }
+
+            .gallery-item-icon {
+                font-size: 28px;
+            }
+
+            .gallery-item-name {
+                font-size: 11px;
+            }
+
+            .intro-text {
+                padding: 16px 18px;
+                font-size: 13px;
+            }
+
+            .loading-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .loading-logo-inner {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+
+            .loading-title {
+                font-size: 20px;
+            }
+
+            .progress-container {
+                width: 200px;
+            }
+
+            .start-btn {
+                padding: 14px 45px;
+                font-size: 14px;
+            }
+
+            .footer {
+                padding: 40px 20px;
+            }
+
+            .footer-text {
+                font-size: 14px;
+            }
+        }
+
+        /* 更小屏幕 */
+        @media (max-width: 400px) {
+            .page {
+                padding: 20px 15px;
+            }
+
+            .character-panel {
+                padding: 20px 15px;
+            }
+
+            .avatar-frame {
+                width: 120px;
+                height: 120px;
+            }
+
+            .avatar-char {
+                font-size: 42px;
+            }
+
+            .page-title {
+                font-size: 18px;
+            }
+
+            .skill-category::after {
+                display: none;
+            }
+
+            .manga-star, .manga-heart {
+                display: none;
             }
         }
     </style>
@@ -1029,12 +1264,17 @@
     <div class="main-container" id="mainContainer">
         <nav class="nav">
             <div class="nav-logo">ZYL ✦</div>
-            <div class="nav-links">
-                <a class="nav-link active" data-page="character">角色档案</a>
-                <a class="nav-link" data-page="skills">天赋技能</a>
-                <a class="nav-link" data-page="adventure">冒险历程</a>
-                <a class="nav-link" data-page="dungeon">副本任务</a>
-                <a class="nav-link" data-page="gallery">作品图鉴</a>
+            <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a class="nav-link active" data-page="character" onclick="toggleNav()">角色档案</a>
+                <a class="nav-link" data-page="skills" onclick="toggleNav()">天赋技能</a>
+                <a class="nav-link" data-page="adventure" onclick="toggleNav()">冒险历程</a>
+                <a class="nav-link" data-page="dungeon" onclick="toggleNav()">副本任务</a>
+                <a class="nav-link" data-page="gallery" onclick="toggleNav()">作品图鉴</a>
             </div>
         </nav>
 
@@ -1540,6 +1780,23 @@
                     }
                 });
             });
+        });
+
+        // 移动端导航切换
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // 点击页面其他区域关闭导航
+        document.addEventListener('click', function(e) {
+            const nav = document.querySelector('.nav');
+            const navLinks = document.getElementById('navLinks');
+            const toggle = document.getElementById('navToggle');
+            if (navLinks && navLinks.classList.contains('active') &&
+                !nav.contains(e.target) && e.target !== toggle) {
+                navLinks.classList.remove('active');
+            }
         });
     </script>
 </body>
