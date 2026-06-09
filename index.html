@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>周颖玲 - 个人主页</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -14,1794 +12,630 @@
         }
 
         :root {
-            /* 漫画可爱风配色 */
-            --bg-sky: #e8f4fc;
-            --bg-pink: #fef0f3;
-            --bg-lavender: #f3f0f8;
-            --bg-cream: #fff8f0;
-            --bg-mint: #f0fcf5;
-
-            --accent-pink: #ff8fae;
-            --accent-blue: #7ec8e3;
-            --accent-coral: #ffb5a7;
-            --accent-purple: #b794c5;
-            --accent-yellow: #ffd93d;
-            --accent-mint: #a8e6cf;
-            --accent-peach: #ffcab0;
-
-            --text-dark: #4a4a5a;
-            --text-gray: #7a7a8a;
-            --text-light: #a0a0b0;
-
-            --shadow-pop: 0 6px 20px rgba(126, 200, 227, 0.25);
-            --shadow-hover: 0 10px 30px rgba(126, 200, 227, 0.35);
-
-            --border-radius: 24px;
-            --border-radius-sm: 18px;
-            --border-radius-lg: 30px;
+            --bg-color: #fafafa;
+            --white: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --accent: #333333;
+            --border: #e5e5e5;
+            --shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         body {
-            font-family: 'Zen Maru Gothic', 'Noto Sans SC', sans-serif;
-            background: var(--bg-sky);
-            color: var(--text-dark);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
             min-height: 100vh;
-            line-height: 1.8;
-            background-image:
-                radial-gradient(circle at 20% 80%, rgba(255, 143, 174, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(126, 200, 227, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(183, 148, 197, 0.1) 0%, transparent 30%);
         }
 
-        /* 漫画装饰元素 */
-        .manga-decor {
-            position: fixed;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .manga-star {
-            position: absolute;
-            font-size: 24px;
-            color: var(--accent-yellow);
-            animation: star-float 2s ease-in-out infinite;
-        }
-
-        .manga-star:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-        .manga-star:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
-        .manga-star:nth-child(3) { bottom: 20%; left: 10%; animation-delay: 1s; }
-        .manga-star:nth-child(4) { bottom: 40%; right: 5%; animation-delay: 1.5s; }
-
-        @keyframes star-float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-            50% { transform: translateY(-10px) rotate(15deg); opacity: 1; }
-        }
-
-        .manga-heart {
-            position: absolute;
-            font-size: 20px;
-            color: var(--accent-pink);
-            animation: heart-beat 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heart-beat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        .page-loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--bg-sky), var(--bg-pink));
+        /* 顶部导航 */
+        .tabs {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            z-index: 1000;
-            transition: opacity 0.6s ease;
-        }
-
-        .page-loading.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-avatar {
-            width: 140px;
-            height: 140px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 40px rgba(255, 143, 174, 0.3);
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .loading-avatar::before {
-            content: '★';
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            font-size: 24px;
-            color: var(--accent-yellow);
-        }
-
-        .loading-avatar-inner {
-            width: 110px;
-            height: 110px;
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 42px;
-        }
-
-        .loading-title {
-            font-size: 24px;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .loading-subtitle {
-            font-size: 15px;
-            color: var(--text-gray);
-            margin-bottom: 35px;
-        }
-
-        .progress-box {
-            background: white;
-            border-radius: 20px;
-            padding: 20px 30px;
-            box-shadow: var(--shadow-pop);
-        }
-
-        .progress-container {
-            width: 260px;
-            height: 14px;
-            background: var(--bg-sky);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-        .progress-text {
-            font-size: 13px;
-            color: var(--text-gray);
-            text-align: center;
-        }
-
-        .start-btn {
-            margin-top: 30px;
-            padding: 16px 55px;
-            font-size: 15px;
-            font-weight: 500;
-            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
-            border: none;
-            color: white;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255, 143, 174, 0.4);
-            display: none;
-            font-family: inherit;
-        }
-
-        .start-btn.visible {
-            display: block;
-            animation: btn-pop 0.4s ease;
-        }
-
-        @keyframes btn-pop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .start-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 35px rgba(255, 143, 174, 0.5);
-        }
-
-        .main-container {
-            display: none;
-            min-height: 100vh;
-            position: relative;
-            z-index: 10;
-        }
-
-        .main-container.visible {
-            display: block;
-            animation: fade-in 0.6s ease;
-        }
-
-        @keyframes fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .nav {
+            gap: 40px;
+            padding: 20px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            height: 75px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 50px;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(126, 200, 227, 0.15);
         }
 
-        .nav-logo {
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-link {
+        .tab {
             font-size: 14px;
-            color: var(--text-gray);
-            text-decoration: none;
-            padding: 12px 22px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
+            color: var(--text-light);
             cursor: pointer;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .tab.active {
+            color: var(--text-primary);
             font-weight: 500;
         }
 
-        .nav-link:hover, .nav-link.active {
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
-            color: white;
-            box-shadow: 0 5px 20px rgba(255, 143, 174, 0.35);
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--text-primary);
+        }
+
+        /* 页面容器 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
         }
 
         .page {
             display: none;
-            padding: 50px;
-            max-width: 1100px;
-            margin: 0 auto;
-            animation: page-up 0.5s ease;
         }
 
         .page.active {
             display: block;
         }
 
-        @keyframes page-up {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* 通用卡片 */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
         }
 
-        .page-title {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 40px;
-            color: var(--text-dark);
+        /* 角色档案 */
+        .profile-header {
+            text-align: center;
+            padding: 40px 24px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
         }
 
-        .page-title::before {
-            content: '✦';
-            color: var(--accent-pink);
-            font-size: 20px;
-        }
-
-        .section-title {
-            font-size: 17px;
+        .profile-name {
+            font-size: 24px;
             font-weight: 600;
-            margin-bottom: 22px;
-            color: var(--text-gray);
+            margin-bottom: 8px;
         }
 
-        .character-panel {
-            background: white;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-pop);
-            padding: 45px;
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 45px;
-            position: relative;
-            overflow: hidden;
+        .profile-title {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
         }
 
-        .character-panel::before {
-            content: '✦ ✦ ✦';
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            font-size: 16px;
-            color: var(--accent-pink);
-            letter-spacing: 10px;
-        }
-
-        .character-panel::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue), var(--accent-purple));
-        }
-
-        .avatar-section {
+        .profile-badges {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .avatar-frame {
-            width: 180px;
-            height: 180px;
-            background: linear-gradient(135deg, var(--bg-pink), var(--bg-sky));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 30px rgba(255, 143, 174, 0.25);
-            position: relative;
-        }
-
-        .avatar-frame::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 15px;
-            width: 25px;
-            height: 12px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.8;
-        }
-
-        .avatar-char {
-            font-size: 65px;
-            color: var(--accent-pink);
-            font-weight: 700;
-        }
-
-        .badges {
-            display: flex;
             gap: 10px;
-            margin-top: 22px;
             flex-wrap: wrap;
-            justify-content: center;
         }
 
         .badge {
-            padding: 8px 18px;
-            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
+            padding: 6px 16px;
+            background: var(--bg-color);
             border-radius: 20px;
             font-size: 12px;
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255, 143, 174, 0.35);
+            color: var(--text-secondary);
         }
 
-        .badge.blue {
-            background: linear-gradient(135deg, var(--accent-blue), #5bb8e0);
-        }
-
-        .badge.purple {
-            background: linear-gradient(135deg, var(--accent-purple), #9b6eb8);
-        }
-
-        .stats-section {
+        .info-row {
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        .stat-row {
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        /* 冒险历程 - 时间线 */
+        .timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 24px;
+            width: 10px;
+            height: 10px;
+            background: var(--white);
+            border: 2px solid var(--text-light);
+            border-radius: 50%;
+        }
+
+        .timeline-item.active::before {
+            border-color: var(--text-primary);
+            background: var(--text-primary);
+        }
+
+        .timeline-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 16px;
-            padding: 18px 22px;
-            background: var(--bg-sky);
-            border-radius: var(--border-radius-sm);
-            transition: all 0.3s ease;
+            margin-bottom: 8px;
         }
 
-        .stat-row:hover {
-            background: var(--bg-pink);
-            transform: translateX(6px);
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 500;
         }
 
-        .stat-icon {
-            width: 44px;
-            height: 44px;
-            background: white;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 3px 12px rgba(126, 200, 227, 0.2);
-        }
-
-        .stat-content {
-            flex: 1;
-        }
-
-        .stat-label {
+        .timeline-time {
             font-size: 12px;
             color: var(--text-light);
-            margin-bottom: 3px;
         }
 
-        .stat-value {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
+        .timeline-company {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
         }
 
-        .intro-text {
-            margin-top: 8px;
-            padding: 22px 25px;
-            background: linear-gradient(135deg, var(--bg-pink), var(--bg-lavender));
-            border-radius: var(--border-radius-sm);
-            font-size: 14px;
-            line-height: 1.9;
-            color: var(--text-gray);
-            position: relative;
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.7;
         }
 
-        .intro-text::before {
-            content: '"';
-            position: absolute;
-            top: 8px;
-            left: 15px;
-            font-size: 36px;
-            color: var(--accent-pink);
-            opacity: 0.4;
-            font-family: serif;
-        }
-
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .skill-category {
-            background: white;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-pop);
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-category::before {
-            content: attr(data-category);
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-dark);
-            display: block;
-            margin-bottom: 25px;
-            padding-bottom: 18px;
-            border-bottom: 3px solid var(--accent-pink);
-        }
-
-        .skill-category::after {
-            content: '✦';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 18px;
-            color: var(--accent-yellow);
-        }
-
-        .skill-tree {
+        .timeline-tags {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
         }
 
+        .timeline-tag {
+            font-size: 11px;
+            color: var(--text-light);
+            padding: 4px 10px;
+            background: var(--bg-color);
+            border-radius: 4px;
+        }
+
+        /* 技能 */
         .skill-item {
+            margin-bottom: 20px;
+        }
+
+        .skill-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-header {
             display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 16px 18px;
-            background: var(--bg-sky);
-            border-radius: var(--border-radius-sm);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .skill-item:hover {
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
-            color: white;
-            transform: translateX(6px);
-        }
-
-        .skill-icon {
-            width: 44px;
-            height: 44px;
-            background: white;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-            box-shadow: 0 3px 10px rgba(126, 200, 227, 0.2);
-        }
-
-        .skill-item:hover .skill-icon {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .skill-info {
-            flex: 1;
-            min-width: 0;
+            justify-content: space-between;
+            margin-bottom: 8px;
         }
 
         .skill-name {
             font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .skill-level {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 500;
         }
 
         .skill-level-text {
-            font-size: 11px;
-            color: var(--accent-pink);
-            font-weight: 700;
-        }
-
-        .skill-item:hover .skill-level-text {
-            color: white;
-        }
-
-        .skill-stars {
-            display: flex;
-            gap: 3px;
-        }
-
-        .skill-star {
-            width: 12px;
-            height: 12px;
-            background: #e8e4f0;
-            border-radius: 3px;
-            transform: rotate(45deg);
-        }
-
-        .skill-star.active {
-            background: var(--accent-yellow);
-        }
-
-        .skill-item:hover .skill-star.active {
-            background: white;
-        }
-
-        .skill-type {
-            padding: 5px 12px;
-            background: white;
-            border-radius: 12px;
-            font-size: 10px;
-            color: var(--accent-blue);
-            font-weight: 600;
-            white-space: nowrap;
-            box-shadow: 0 2px 8px rgba(126, 200, 227, 0.2);
-        }
-
-        .skill-item:hover .skill-type {
-            background: rgba(255, 255, 255, 0.3);
-            color: white;
-        }
-
-        .adventure-timeline {
-            position: relative;
-            padding-left: 45px;
-        }
-
-        .adventure-timeline::before {
-            content: '';
-            position: absolute;
-            left: 12px;
-            top: 15px;
-            bottom: 15px;
-            width: 5px;
-            background: linear-gradient(to bottom, var(--accent-pink), var(--accent-blue), var(--accent-purple));
-            border-radius: 3px;
-        }
-
-        .adventure-node {
-            position: relative;
-            margin-bottom: 30px;
-            padding: 28px 32px;
-            background: white;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-pop);
-            transition: all 0.3s ease;
-        }
-
-        .adventure-node:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .adventure-node::before {
-            content: '★';
-            position: absolute;
-            left: -40px;
-            top: 28px;
-            font-size: 18px;
-            color: var(--accent-yellow);
-        }
-
-        .adventure-node.completed::before {
-            content: '✓';
-            color: var(--accent-mint);
-        }
-
-        .adventure-node.active::before {
-            color: var(--accent-pink);
-            animation: star-pulse 1s ease-in-out infinite;
-        }
-
-        @keyframes star-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .adventure-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .adventure-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .adventure-company {
-            font-size: 14px;
-            color: var(--accent-pink);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .adventure-time {
-            padding: 6px 16px;
-            background: linear-gradient(135deg, var(--accent-blue), #5bb8e0);
-            border-radius: 15px;
             font-size: 12px;
-            color: white;
-            font-weight: 600;
+            color: var(--text-light);
         }
 
-        .adventure-desc {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.85;
-            margin-top: 14px;
-        }
-
-        .adventure-desc li {
-            margin-bottom: 6px;
-            padding-left: 5px;
-        }
-
-        .adventure-tags {
-            display: flex;
-            gap: 10px;
-            margin-top: 14px;
-        }
-
-        .adventure-tag {
-            padding: 5px 14px;
-            background: var(--bg-sky);
-            border-radius: 12px;
-            font-size: 11px;
-            color: var(--accent-blue);
-            font-weight: 600;
-        }
-
-        .dungeon-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-
-        .dungeon-card {
-            background: white;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-pop);
-            padding: 32px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
+        .skill-bar {
+            height: 6px;
+            background: var(--bg-color);
+            border-radius: 3px;
             overflow: hidden;
         }
 
-        .dungeon-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
         }
 
-        .dungeon-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .dungeon-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 18px;
-        }
-
-        .dungeon-name {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .dungeon-difficulty {
-            padding: 6px 14px;
-            border-radius: 15px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        .dungeon-difficulty.ssr {
-            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
-            color: white;
-        }
-
-        .dungeon-difficulty.sr {
-            background: linear-gradient(135deg, var(--accent-purple), #9b6eb8);
-            color: white;
-        }
-
-        .dungeon-difficulty.r {
-            background: linear-gradient(135deg, var(--accent-blue), #5bb8e0);
-            color: white;
-        }
-
-        .dungeon-objective {
-            font-size: 14px;
-            color: var(--text-gray);
-            margin-bottom: 22px;
-            line-height: 1.8;
-        }
-
-        .dungeon-objective li {
-            margin-bottom: 5px;
-        }
-
-        .dungeon-rewards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-        }
-
-        .dungeon-reward {
-            padding: 18px;
-            background: var(--bg-sky);
-            border-radius: var(--border-radius-sm);
-            text-align: center;
-        }
-
-        .dungeon-reward-value {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--accent-pink);
-        }
-
-        .dungeon-reward-label {
-            font-size: 11px;
-            color: var(--text-light);
-            margin-top: 4px;
-        }
-
+        /* 作品图鉴 */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
         }
 
         .gallery-item {
             aspect-ratio: 1;
-            background: white;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-pop);
+            background: var(--bg-color);
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 25px;
+            transition: all 0.3s;
         }
 
         .gallery-item:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
-        .gallery-item-icon {
-            font-size: 38px;
-            margin-bottom: 12px;
+        .gallery-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
         }
 
-        .gallery-item-name {
-            font-size: 13px;
-            color: var(--text-dark);
+        .gallery-name {
+            font-size: 12px;
+            color: var(--text-secondary);
             text-align: center;
-            font-weight: 600;
         }
 
         .gallery-rarity {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            padding: 4px 10px;
-            border-radius: 10px;
             font-size: 10px;
-            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 6px;
         }
 
         .gallery-rarity.ssr {
-            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
             color: white;
         }
 
         .gallery-rarity.sr {
-            background: linear-gradient(135deg, var(--accent-purple), #9b6eb8);
+            background: #ff6b9d;
             color: white;
         }
 
         .gallery-rarity.r {
-            background: linear-gradient(135deg, var(--accent-blue), #5bb8e0);
+            background: #667eea;
             color: white;
         }
 
+        /* 页脚 */
         .footer {
-            background: white;
-            padding: 55px 50px;
             text-align: center;
-            margin-top: 60px;
-            box-shadow: 0 -6px 25px rgba(126, 200, 227, 0.15);
-            position: relative;
-        }
-
-        .footer::before {
-            content: '✦ ✦ ✦';
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            color: var(--accent-pink);
-            letter-spacing: 12px;
-        }
-
-        .footer-text {
-            font-size: 16px;
-            color: var(--text-gray);
-            margin-bottom: 30px;
-            margin-top: 20px;
-        }
-
-        .footer-btn {
-            padding: 14px 45px;
-            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
-            border: none;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            font-family: inherit;
-            box-shadow: 0 6px 20px rgba(255, 143, 174, 0.4);
-        }
-
-        .footer-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 143, 174, 0.5);
-        }
-
-        .footer-copyright {
-            margin-top: 30px;
-            font-size: 12px;
+            padding: 30px 20px;
             color: var(--text-light);
+            font-size: 12px;
         }
 
-        /* ===== 移动端适配 ===== */
-
-        /* 移动端导航 */
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .nav-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--accent-pink);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .nav {
-                padding: 0 20px;
-                height: 60px;
-                justify-content: space-between;
+        /* 移动端适配 */
+        @media (max-width: 600px) {
+            .tabs {
+                gap: 24px;
             }
 
-            .nav-logo {
-                font-size: 18px;
+            .tab {
+                font-size: 13px;
             }
 
-            .nav-toggle {
-                display: flex !important;
+            .container {
+                padding: 20px 16px 40px;
             }
 
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 15px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-                gap: 8px;
+            .card {
+                padding: 20px;
+                border-radius: 10px;
             }
 
-            .nav-links.active {
-                display: flex;
+            .profile-header {
+                padding: 30px 16px;
             }
 
-            .nav-link {
-                padding: 12px 20px;
-                text-align: center;
-                border-radius: 15px;
+            .profile-avatar {
+                width: 64px;
+                height: 64px;
+                font-size: 24px;
             }
 
-            .nav-toggle {
-                display: flex;
-            }
-
-            .page {
-                padding: 25px 18px;
-            }
-
-            .page-title {
+            .profile-name {
                 font-size: 20px;
-                margin-bottom: 25px;
             }
 
-            .character-panel {
-                grid-template-columns: 1fr;
-                padding: 25px 20px;
-                gap: 25px;
-            }
-
-            .avatar-frame {
-                width: 140px;
-                height: 140px;
-            }
-
-            .avatar-char {
-                font-size: 50px;
-            }
-
-            .badges {
+            .profile-badges {
                 gap: 8px;
             }
 
             .badge {
-                padding: 6px 14px;
+                padding: 5px 12px;
                 font-size: 11px;
-            }
-
-            .stat-row {
-                padding: 14px 16px;
-                gap: 12px;
-            }
-
-            .stat-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-
-            .stat-value {
-                font-size: 13px;
-            }
-
-            .skills-container {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-
-            .skill-category {
-                padding: 22px 18px;
-            }
-
-            .skill-item {
-                padding: 12px 14px;
-                gap: 10px;
-            }
-
-            .skill-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-
-            .skill-name {
-                font-size: 13px;
-            }
-
-            .skill-type {
-                padding: 4px 10px;
-                font-size: 9px;
-            }
-
-            .adventure-timeline {
-                padding-left: 30px;
-            }
-
-            .adventure-node {
-                padding: 20px 18px;
-            }
-
-            .adventure-node::before {
-                left: -30px;
-                font-size: 14px;
-            }
-
-            .adventure-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-
-            .adventure-title {
-                font-size: 15px;
-            }
-
-            .adventure-time {
-                font-size: 11px;
-            }
-
-            .adventure-desc {
-                font-size: 13px;
-            }
-
-            .dungeon-grid {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-
-            .dungeon-card {
-                padding: 22px 18px;
-            }
-
-            .dungeon-name {
-                font-size: 15px;
-            }
-
-            .dungeon-objective {
-                font-size: 13px;
-            }
-
-            .dungeon-rewards {
-                gap: 10px;
-            }
-
-            .dungeon-reward {
-                padding: 14px 10px;
-            }
-
-            .dungeon-reward-value {
-                font-size: 18px;
             }
 
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+                gap: 10px;
             }
 
-            .gallery-item {
-                padding: 18px 12px;
+            .timeline {
+                padding-left: 20px;
             }
 
-            .gallery-item-icon {
-                font-size: 28px;
-            }
-
-            .gallery-item-name {
-                font-size: 11px;
-            }
-
-            .intro-text {
-                padding: 16px 18px;
-                font-size: 13px;
-            }
-
-            .loading-logo {
-                width: 100px;
-                height: 100px;
-            }
-
-            .loading-logo-inner {
-                width: 80px;
-                height: 80px;
-                font-size: 32px;
-            }
-
-            .loading-title {
-                font-size: 20px;
-            }
-
-            .progress-container {
-                width: 200px;
-            }
-
-            .start-btn {
-                padding: 14px 45px;
-                font-size: 14px;
-            }
-
-            .footer {
-                padding: 40px 20px;
-            }
-
-            .footer-text {
-                font-size: 14px;
-            }
-        }
-
-        /* 更小屏幕 */
-        @media (max-width: 400px) {
-            .page {
-                padding: 20px 15px;
-            }
-
-            .character-panel {
-                padding: 20px 15px;
-            }
-
-            .avatar-frame {
-                width: 120px;
-                height: 120px;
-            }
-
-            .avatar-char {
-                font-size: 42px;
-            }
-
-            .page-title {
-                font-size: 18px;
-            }
-
-            .skill-category::after {
-                display: none;
-            }
-
-            .manga-star, .manga-heart {
-                display: none;
+            .timeline-item::before {
+                left: -18px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 漫画装饰 -->
-    <div class="manga-decor">
-        <span class="manga-star">★</span>
-        <span class="manga-star">★</span>
-        <span class="manga-star">★</span>
-        <span class="manga-star">★</span>
-        <span class="manga-heart" style="top: 15%; right: 15%;">♥</span>
-        <span class="manga-heart" style="bottom: 30%; left: 8%;">♥</span>
+    <!-- 顶部导航 -->
+    <div class="tabs">
+        <div class="tab active" data-tab="profile">角色档案</div>
+        <div class="tab" data-tab="timeline">冒险历程</div>
+        <div class="tab" data-tab="skills">天赋技能</div>
+        <div class="tab" data-tab="gallery">作品图鉴</div>
     </div>
 
-    <div class="page-loading" id="loadingPage">
-        <div class="loading-avatar">
-            <div class="loading-avatar-inner">周</div>
-        </div>
-        <div class="loading-title">欢迎来到我的世界 ✦</div>
-        <div class="loading-subtitle">正在加载个人档案...</div>
-        <div class="progress-box">
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <div class="progress-text" id="progressText">0%</div>
-        </div>
-        <button class="start-btn" id="startBtn">开始探索 ✦</button>
-    </div>
-
-    <div class="main-container" id="mainContainer">
-        <nav class="nav">
-            <div class="nav-logo">ZYL ✦</div>
-            <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="nav-links" id="navLinks">
-                <a class="nav-link active" data-page="character" onclick="toggleNav()">角色档案</a>
-                <a class="nav-link" data-page="skills" onclick="toggleNav()">天赋技能</a>
-                <a class="nav-link" data-page="adventure" onclick="toggleNav()">冒险历程</a>
-                <a class="nav-link" data-page="dungeon" onclick="toggleNav()">副本任务</a>
-                <a class="nav-link" data-page="gallery" onclick="toggleNav()">作品图鉴</a>
-            </div>
-        </nav>
-
-        <!-- 1. 角色档案页 -->
-        <div class="page active" id="page-character">
-            <h1 class="page-title">角色信息</h1>
-
-            <div class="character-panel">
-                <div class="avatar-section">
-                    <div class="avatar-frame">
-                        <span class="avatar-char">周</span>
-                    </div>
-                    <div class="badges">
-                        <span class="badge">应届生</span>
-                        <span class="badge blue">AI产品</span>
-                        <span class="badge purple">211本科</span>
-                    </div>
+    <!-- 页面内容 -->
+    <div class="container">
+        <!-- 角色档案 -->
+        <div class="page active" id="page-profile">
+            <div class="card profile-header">
+                <div class="profile-avatar">周</div>
+                <div class="profile-name">周颖玲</div>
+                <div class="profile-title">产品经理 / AI产品方向</div>
+                <div class="profile-badges">
+                    <span class="badge">应届生</span>
+                    <span class="badge">AI产品</span>
+                    <span class="badge">211本科</span>
                 </div>
+            </div>
 
-                <div class="stats-section">
-                    <div class="stat-row">
-                        <div class="stat-icon">👤</div>
-                        <div class="stat-content">
-                            <div class="stat-label">角色名称</div>
-                            <div class="stat-value">周颖玲</div>
+            <div class="card">
+                <div class="info-row">
+                    <span class="info-label">电话</span>
+                    <span class="info-value">193-0700-6878</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">邮箱</span>
+                    <span class="info-value">z910ling@163.com</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">求职意向</span>
+                    <span class="info-value">产品经理 / AI产品 / 商业产品 / 策略产品</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">毕业院校</span>
+                    <span class="info-value">南昌大学（211）| 工商管理</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 冒险历程 -->
+        <div class="page" id="page-timeline">
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item active">
+                        <div class="timeline-header">
+                            <div class="timeline-title">【就业】马上消费</div>
+                            <div class="timeline-time">2025.07 - 2026.01</div>
+                        </div>
+                        <div class="timeline-company">产品经理</div>
+                        <div class="timeline-desc">
+                            深度参与"培训数字人平台"建设，聚焦金融业务员工培训标准化与规模化难题。识别"培训周期长、讲师依赖强、知识更新滞后"三大核心痛点，规划以AIGC数字人替代传统讲师。
+                        </div>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">AI产品</span>
+                            <span class="timeline-tag">数字人</span>
+                            <span class="timeline-tag">RAG</span>
                         </div>
                     </div>
 
-                    <div class="stat-row">
-                        <div class="stat-icon">📱</div>
-                        <div class="stat-content">
-                            <div class="stat-label">联络频道</div>
-                            <div class="stat-value">193-0700-6878</div>
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">【实习】达利食品集团</div>
+                            <div class="timeline-time">2024.12 - 2025.04</div>
+                        </div>
+                        <div class="timeline-company">产品运营</div>
+                        <div class="timeline-desc">
+                            聚焦南昌大学校园年轻用户群体，搭建校园用户触达与转化路径。策划校园主题运营活动，线下覆盖1000+人次，线上触达30000+人。
+                        </div>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">校园运营</span>
+                            <span class="timeline-tag">AIGC</span>
                         </div>
                     </div>
 
-                    <div class="stat-row">
-                        <div class="stat-icon">✉</div>
-                        <div class="stat-content">
-                            <div class="stat-label">邮箱</div>
-                            <div class="stat-value">z910ling@163.com</div>
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">【在校】南昌大学</div>
+                            <div class="timeline-time">2022.09 - 2026.06</div>
                         </div>
-                    </div>
-
-                    <div class="stat-row">
-                        <div class="stat-icon">🎯</div>
-                        <div class="stat-content">
-                            <div class="stat-label">职业定位</div>
-                            <div class="stat-value">产品经理 / AI产品 / 商业产品 / 策略产品</div>
+                        <div class="timeline-company">工商管理（本科）</div>
+                        <div class="timeline-desc">
+                            南昌大学（211）工商管理专业本科，具备系统的管理学知识背景。
                         </div>
-                    </div>
-
-                    <div class="stat-row">
-                        <div class="stat-icon">🏫</div>
-                        <div class="stat-content">
-                            <div class="stat-label">毕业院校</div>
-                            <div class="stat-value">南昌大学（211）| 工商管理</div>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">211本科</span>
+                            <span class="timeline-tag">管理学</span>
                         </div>
-                    </div>
-
-                    <div class="intro-text">
-                        具备产品思维与AI产品设计能力的应届生，深度参与过培训数字人平台全流程建设，聚焦金融业务场景下的AI产品设计。从需求分析到产品落地，从竞品拆解到能力引入具备完整的产品实战经验。擅长AIGC、数字人等AI产品设计。
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 2. 技能页 -->
+        <!-- 天赋技能 -->
         <div class="page" id="page-skills">
-            <h1 class="page-title">天赋技能</h1>
-
-            <div class="skills-container">
-                <!-- AI能力 -->
-                <div class="skill-category" data-category="✦ AI能力">
-                    <div class="skill-tree">
-                        <div class="skill-item">
-                            <div class="skill-icon">🤖</div>
-                            <div class="skill-info">
-                                <div class="skill-name">Prompt工程</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.9</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">主动</span>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-icon">🧠</div>
-                            <div class="skill-info">
-                                <div class="skill-name">AI技术原理</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.8</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">被动</span>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-icon">🛠</div>
-                            <div class="skill-info">
-                                <div class="skill-name">技术实现认知</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.7</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">被动</span>
-                        </div>
+            <div class="card">
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Prompt工程</span>
+                        <span class="skill-level-text">Lv.9</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill" style="width: 90%"></div>
                     </div>
                 </div>
 
-                <!-- AI产品 -->
-                <div class="skill-category" data-category="✦ AI产品">
-                    <div class="skill-tree">
-                        <div class="skill-item">
-                            <div class="skill-icon">🎨</div>
-                            <div class="skill-info">
-                                <div class="skill-name">AIGC产品设计</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.8</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">主动</span>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-icon">🎭</div>
-                            <div class="skill-info">
-                                <div class="skill-name">数字人产品</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.8</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">主动</span>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-icon">🖼</div>
-                            <div class="skill-info">
-                                <div class="skill-name">多模态产品</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.7</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">被动</span>
-                        </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">AI技术原理</span>
+                        <span class="skill-level-text">Lv.8</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill" style="width: 80%"></div>
                     </div>
                 </div>
 
-                <!-- 产品能力 -->
-                <div class="skill-category" data-category="✦ 产品能力">
-                    <div class="skill-tree">
-                        <div class="skill-item">
-                            <div class="skill-icon">💡</div>
-                            <div class="skill-info">
-                                <div class="skill-name">产品思维</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.9</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">主动</span>
-                        </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">AIGC产品设计</span>
+                        <span class="skill-level-text">Lv.8</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill" style="width: 80%"></div>
+                    </div>
+                </div>
 
-                        <div class="skill-item">
-                            <div class="skill-icon">📊</div>
-                            <div class="skill-info">
-                                <div class="skill-name">需求分析</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.8</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">主动</span>
-                        </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">数字��产��</span>
+                        <span class="skill-level-text">Lv.8</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill" style="width: 80%"></div>
+                    </div>
+                </div>
 
-                        <div class="skill-item">
-                            <div class="skill-icon">🔍</div>
-                            <div class="skill-info">
-                                <div class="skill-name">竞品分析</div>
-                                <div class="skill-level">
-                                    <span class="skill-level-text">Lv.8</span>
-                                    <div class="skill-stars">
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star active"></span>
-                                        <span class="skill-star"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="skill-type">主动</span>
-                        </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">产品思维</span>
+                        <span class="skill-level-text">Lv.9</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">需求分析</span>
+                        <span class="skill-level-text">Lv.8</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill" style="width: 80%"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. 冒险历程页 -->
-        <div class="page" id="page-adventure">
-            <h1 class="page-title">冒险历程</h1>
-
-            <div class="adventure-timeline">
-                <div class="adventure-node active">
-                    <div class="adventure-header">
-                        <div class="adventure-title">【就业】马上消费</div>
-                        <div class="adventure-time">2025.07 - 2026.01</div>
-                    </div>
-                    <div class="adventure-company">产品经理</div>
-                    <ul class="adventure-desc">
-                        <li>深度参与"培训数字人平台"建设，聚焦金融业务员工培训标准化与规模化难题</li>
-                        <li>识别"培训周期长、讲师依赖强、知识更新滞后"三大核心痛点</li>
-                        <li>参与大模型能力选型与集成，搭建"LLM+TTS+ASR+数字人驱动"多模态架构</li>
-                        <li>设计课程生产、审核、发布、学习闭环流程</li>
-                    </ul>
-                    <div class="adventure-tags">
-                        <span class="adventure-tag">AI产品</span>
-                        <span class="adventure-tag">数字人</span>
-                        <span class="adventure-tag">RAG</span>
-                    </div>
-                </div>
-
-                <div class="adventure-node completed">
-                    <div class="adventure-header">
-                        <div class="adventure-title">【实习】达利食品集团</div>
-                        <div class="adventure-time">2024.12 - 2025.04</div>
-                    </div>
-                    <div class="adventure-company">产品运营</div>
-                    <ul class="adventure-desc">
-                        <li>聚焦南昌大学校园年轻用户群体，搭建校园用户触达与转化路径</li>
-                        <li>策划校园主题运营活动，线下覆盖1000+人次，线上触达30000+人</li>
-                        <li>使用AIGC生成技术产出视觉物料与场景化种草文案</li>
-                        <li>协调校内场地、社团及KOL资源，优化资源分配</li>
-                    </ul>
-                    <div class="adventure-tags">
-                        <span class="adventure-tag">校园运营</span>
-                        <span class="adventure-tag">AIGC</span>
-                    </div>
-                </div>
-
-                <div class="adventure-node completed">
-                    <div class="adventure-header">
-                        <div class="adventure-title">【在校】南昌大学</div>
-                        <div class="adventure-time">2022.09 - 2026.06</div>
-                    </div>
-                    <div class="adventure-company">工商管理（本科）</div>
-                    <ul class="adventure-desc">
-                        <li>南昌大学（211）工商管理专业本科</li>
-                        <li>具备系统的管理学知识背景</li>
-                    </ul>
-                    <div class="adventure-tags">
-                        <span class="adventure-tag">211本科</span>
-                        <span class="adventure-tag">管理学</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. 副本任务页 -->
-        <div class="page" id="page-dungeon">
-            <h1 class="page-title">副本挑战</h1>
-
-            <div class="dungeon-grid">
-                <div class="dungeon-card">
-                    <div class="dungeon-header">
-                        <div class="dungeon-name">✦ 培训数字人平台</div>
-                        <span class="dungeon-difficulty ssr">核心项目</span>
-                    </div>
-                    <div class="dungeon-objective">
-                        <li>负责产品全流程设计，构建智能培训体系</li>
-                        <li>搭建"LLM+TTS+ASR+数字人驱动"架构</li>
-                        <li>引入RAG知识库增强</li>
-                    </div>
-                    <div class="dungeon-rewards">
-                        <div class="dungeon-reward">
-                            <div class="dungeon-reward-value">120+</div>
-                            <div class="dungeon-reward-label">标准化课程</div>
-                        </div>
-                        <div class="dungeon-reward">
-                            <div class="dungeon-reward-value">4倍</div>
-                            <div class="dungeon-reward-label">生产效率</div>
-                        </div>
-                        <div class="dungeon-reward">
-                            <div class="dungeon-reward-value">-40%</div>
-                            <div class="dungeon-reward-label">培训成本</div>
-                        </div>
-                        <div class="dungeon-reward">
-                            <div class="dungeon-reward-value">92%</div>
-                            <div class="dungeon-reward-label">课程完课率</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dungeon-card">
-                    <div class="dungeon-header">
-                        <div class="dungeon-name">✦ 校园反诈AI小程序</div>
-                        <span class="dungeon-difficulty sr">竞赛项目</span>
-                    </div>
-                    <div class="dungeon-objective">
-                        <li>中国国际大学生创新大赛参赛项目</li>
-                        <li>AI反诈科普+风险识别+实时预警</li>
-                        <li>完成产品全流程规划与开发</li>
-                    </div>
-                    <div class="dungeon-rewards">
-                        <div class="dungeon-reward">
-                            <div class="dungeon-reward-value">路演</div>
-                            <div class="dungeon-reward-label">完成展示</div>
-                        </div>
-                        <div class="dungeon-reward">
-                            <div class="dungeon-reward-value">完整</div>
-                            <div class="dungeon-reward-label">产品原型</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dungeon-card">
-                    <div class="dungeon-header">
-                        <div class="dungeon-name">✦ 校园产品运营</div>
-                        <span class="dungeon-difficulty r">运营项目</span>
-                    </div>
-                    <div class="dungeon-objective">
-                        <li>达利食品集团校园运营项目</li>
-                        <li>线上线下联动推广</li>
-                        <li>AIGC内容生成</li>
-                    </div>
-                    <div class="dungeon-rewards">
-                        <div class="dungeon-reward">
-                            <div class="dungeon-reward-value">1000+</div>
-                            <div class="dungeon-reward-label">线下人次</div>
-                        </div>
-                        <div class="dungeon-reward">
-                            <div class="dungeon-reward-value">30000+</div>
-                            <div class="dungeon-reward-label">线上触达</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 5. 作品图鉴页 -->
+        <!-- 作品图鉴 -->
         <div class="page" id="page-gallery">
-            <h1 class="page-title">作品图鉴</h1>
+            <div class="card">
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="gallery-icon">🤖</div>
+                        <div class="gallery-name">培训数字人平台</div>
+                        <div class="gallery-rarity ssr">稀有</div>
+                    </div>
 
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <span class="gallery-rarity ssr">稀有</span>
-                    <div class="gallery-item-icon">🤖</div>
-                    <div class="gallery-item-name">培训数字人平台</div>
-                </div>
+                    <div class="gallery-item">
+                        <div class="gallery-icon">🔒</div>
+                        <div class="gallery-name">反诈AI小程序</div>
+                        <div class="gallery-rarity ssr">稀有</div>
+                    </div>
 
-                <div class="gallery-item">
-                    <span class="gallery-rarity ssr">稀有</span>
-                    <div class="gallery-item-icon">🔒</div>
-                    <div class="gallery-item-name">反诈AI小程序</div>
-                </div>
+                    <div class="gallery-item">
+                        <div class="gallery-icon">📊</div>
+                        <div class="gallery-name">竞品报告</div>
+                        <div class="gallery-rarity sr">精选</div>
+                    </div>
 
-                <div class="gallery-item">
-                    <span class="gallery-rarity sr">精选</span>
-                    <div class="gallery-item-icon">📊</div>
-                    <div class="gallery-item-name">竞品报告</div>
-                </div>
+                    <div class="gallery-item">
+                        <div class="gallery-icon">📝</div>
+                        <div class="gallery-name">PRD文档</div>
+                        <div class="gallery-rarity sr">精选</div>
+                    </div>
 
-                <div class="gallery-item">
-                    <span class="gallery-rarity sr">精选</span>
-                    <div class="gallery-item-icon">📝</div>
-                    <div class="gallery-item-name">PRD文档</div>
-                </div>
+                    <div class="gallery-item">
+                        <div class="gallery-icon">🎨</div>
+                        <div class="gallery-name">产品原型</div>
+                        <div class="gallery-rarity r">普通</div>
+                    </div>
 
-                <div class="gallery-item">
-                    <span class="gallery-rarity r">普通</span>
-                    <div class="gallery-item-icon">🎨</div>
-                    <div class="gallery-item-name">产品原型</div>
-                </div>
-
-                <div class="gallery-item">
-                    <span class="gallery-rarity r">普通</span>
-                    <div class="gallery-item-icon">📋</div>
-                    <div class="gallery-item-name">需求规格</div>
-                </div>
-
-                <div class="gallery-item">
-                    <span class="gallery-rarity r">普通</span>
-                    <div class="gallery-item-icon">🖼</div>
-                    <div class="gallery-item-name">AIGC物料</div>
-                </div>
-
-                <div class="gallery-item">
-                    <span class="gallery-rarity r">普通</span>
-                    <div class="gallery-item-icon">📌</div>
-                    <div class="gallery-item-name">更多作品</div>
+                    <div class="gallery-item">
+                        <div class="gallery-icon">🖼️</div>
+                        <div class="gallery-name">AIGC物料</div>
+                        <div class="gallery-rarity r">普通</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <footer class="footer">
-            <div class="footer-text">旅程暂告一段落，期待组队合作 ✦</div>
-            <a href="#" class="footer-btn" onclick="location.reload()">返回主城 ✦</a>
-            <div class="footer-copyright">© 2026 周颖玲 · 个人主页</div>
-        </footer>
+        <!-- 页脚 -->
+        <div class="footer">
+            © 2026 周颖玲 · 个人主页
+        </div>
     </div>
 
     <script>
-        const loadingPage = document.getElementById('loadingPage');
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
-        const startBtn = document.getElementById('startBtn');
-        const mainContainer = document.getElementById('mainContainer');
-
-        let progress = 0;
-
-        function updateProgress() {
-            progress += Math.random() * 12 + 3;
-            if (progress >= 100) {
-                progress = 100;
-                progressBar.style.width = '100%';
-                progressText.textContent = '100% ✦';
-                startBtn.classList.add('visible');
-                return;
-            }
-
-            progressBar.style.width = progress + '%';
-            progressText.textContent = Math.floor(progress) + '%';
-            setTimeout(updateProgress, 250 + Math.random() * 150);
-        }
-
-        setTimeout(updateProgress, 400);
-
-        startBtn.addEventListener('click', function() {
-            loadingPage.classList.add('hidden');
-            mainContainer.classList.add('visible');
-            setTimeout(() => {
-                loadingPage.style.display = 'none';
-            }, 600);
-        });
-
-        const navLinks = document.querySelectorAll('.nav-link');
+        // 标签页切换
+        const tabs = document.querySelectorAll('.tab');
         const pages = document.querySelectorAll('.page');
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                const pageId = this.getAttribute('data-page');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
 
-                navLinks.forEach(l => l.classList.remove('active'));
+                tabs.forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
 
                 pages.forEach(page => {
                     page.classList.remove('active');
-                    if (page.id === 'page-' + pageId) {
+                    if (page.id === 'page-' + tabId) {
                         page.classList.add('active');
                     }
                 });
             });
-        });
-
-        // 移动端导航切换
-        function toggleNav() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
-        }
-
-        // 点击页面其他区域关闭导航
-        document.addEventListener('click', function(e) {
-            const nav = document.querySelector('.nav');
-            const navLinks = document.getElementById('navLinks');
-            const toggle = document.getElementById('navToggle');
-            if (navLinks && navLinks.classList.contains('active') &&
-                !nav.contains(e.target) && e.target !== toggle) {
-                navLinks.classList.remove('active');
-            }
         });
     </script>
 </body>
