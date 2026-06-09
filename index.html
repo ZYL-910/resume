@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周颖玲 - 个人主页</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 漫画可爱风配色 */
+            --bg-sky: #e8f4fc;
+            --bg-pink: #fef0f3;
+            --bg-lavender: #f3f0f8;
+            --bg-cream: #fff8f0;
+            --bg-mint: #f0fcf5;
+
+            --accent-pink: #ff8fae;
+            --accent-blue: #7ec8e3;
+            --accent-coral: #ffb5a7;
+            --accent-purple: #b794c5;
+            --accent-yellow: #ffd93d;
+            --accent-mint: #a8e6cf;
+            --accent-peach: #ffcab0;
+
+            --text-dark: #4a4a5a;
+            --text-gray: #7a7a8a;
+            --text-light: #a0a0b0;
+
+            --shadow-pop: 0 6px 20px rgba(126, 200, 227, 0.25);
+            --shadow-hover: 0 10px 30px rgba(126, 200, 227, 0.35);
+
+            --border-radius: 24px;
+            --border-radius-sm: 18px;
+            --border-radius-lg: 30px;
+        }
+
+        body {
+            font-family: 'Zen Maru Gothic', 'Noto Sans SC', sans-serif;
+            background: var(--bg-sky);
+            color: var(--text-dark);
+            min-height: 100vh;
+            line-height: 1.8;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(255, 143, 174, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(126, 200, 227, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(183, 148, 197, 0.1) 0%, transparent 30%);
+        }
+
+        /* 漫画装饰元素 */
+        .manga-decor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .manga-star {
+            position: absolute;
+            font-size: 24px;
+            color: var(--accent-yellow);
+            animation: star-float 2s ease-in-out infinite;
+        }
+
+        .manga-star:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .manga-star:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .manga-star:nth-child(3) { bottom: 20%; left: 10%; animation-delay: 1s; }
+        .manga-star:nth-child(4) { bottom: 40%; right: 5%; animation-delay: 1.5s; }
+
+        @keyframes star-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            50% { transform: translateY(-10px) rotate(15deg); opacity: 1; }
+        }
+
+        .manga-heart {
+            position: absolute;
+            font-size: 20px;
+            color: var(--accent-pink);
+            animation: heart-beat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heart-beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .page-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg-sky), var(--bg-pink));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.6s ease;
+        }
+
+        .page-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-avatar {
+            width: 140px;
+            height: 140px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(255, 143, 174, 0.3);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .loading-avatar::before {
+            content: '★';
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            font-size: 24px;
+            color: var(--accent-yellow);
+        }
+
+        .loading-avatar-inner {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 42px;
+        }
+
+        .loading-title {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .loading-subtitle {
+            font-size: 15px;
+            color: var(--text-gray);
+            margin-bottom: 35px;
+        }
+
+        .progress-box {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 30px;
+            box-shadow: var(--shadow-pop);
+        }
+
+        .progress-container {
+            width: 260px;
+            height: 14px;
+            background: var(--bg-sky);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--text-gray);
+            text-align: center;
+        }
+
+        .start-btn {
+            margin-top: 30px;
+            padding: 16px 55px;
+            font-size: 15px;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
+            border: none;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 143, 174, 0.4);
+            display: none;
+            font-family: inherit;
+        }
+
+        .start-btn.visible {
+            display: block;
+            animation: btn-pop 0.4s ease;
+        }
+
+        @keyframes btn-pop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(255, 143, 174, 0.5);
+        }
+
+        .main-container {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main-container.visible {
+            display: block;
+            animation: fade-in 0.6s ease;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(126, 200, 227, 0.15);
+        }
+
+        .nav-logo {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            color: var(--text-gray);
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 143, 174, 0.35);
+        }
+
+        .page {
+            display: none;
+            padding: 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+            animation: page-up 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes page-up {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-title::before {
+            content: '✦';
+            color: var(--accent-pink);
+            font-size: 20px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 22px;
+            color: var(--text-gray);
+        }
+
+        .character-panel {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-pop);
+            padding: 45px;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 45px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-panel::before {
+            content: '✦ ✦ ✦';
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 16px;
+            color: var(--accent-pink);
+            letter-spacing: 10px;
+        }
+
+        .character-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue), var(--accent-purple));
+        }
+
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar-frame {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, var(--bg-pink), var(--bg-sky));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(255, 143, 174, 0.25);
+            position: relative;
+        }
+
+        .avatar-frame::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 15px;
+            width: 25px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        .avatar-char {
+            font-size: 65px;
+            color: var(--accent-pink);
+            font-weight: 700;
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge {
+            padding: 8px 18px;
+            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
+            border-radius: 20px;
+            font-size: 12px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 143, 174, 0.35);
+        }
+
+        .badge.blue {
+            background: linear-gradient(135deg, var(--accent-blue), #5bb8e0);
+        }
+
+        .badge.purple {
+            background: linear-gradient(135deg, var(--accent-purple), #9b6eb8);
+        }
+
+        .stats-section {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .stat-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 22px;
+            background: var(--bg-sky);
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .stat-row:hover {
+            background: var(--bg-pink);
+            transform: translateX(6px);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 3px 12px rgba(126, 200, 227, 0.2);
+        }
+
+        .stat-content {
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 3px;
+        }
+
+        .stat-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .intro-text {
+            margin-top: 8px;
+            padding: 22px 25px;
+            background: linear-gradient(135deg, var(--bg-pink), var(--bg-lavender));
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text-gray);
+            position: relative;
+        }
+
+        .intro-text::before {
+            content: '"';
+            position: absolute;
+            top: 8px;
+            left: 15px;
+            font-size: 36px;
+            color: var(--accent-pink);
+            opacity: 0.4;
+            font-family: serif;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .skill-category {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-pop);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: attr(data-category);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 3px solid var(--accent-pink);
+        }
+
+        .skill-category::after {
+            content: '✦';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+            color: var(--accent-yellow);
+        }
+
+        .skill-tree {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            background: var(--bg-sky);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+            color: white;
+            transform: translateX(6px);
+        }
+
+        .skill-icon {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(126, 200, 227, 0.2);
+        }
+
+        .skill-item:hover .skill-icon {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .skill-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .skill-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .skill-level {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-level-text {
+            font-size: 11px;
+            color: var(--accent-pink);
+            font-weight: 700;
+        }
+
+        .skill-item:hover .skill-level-text {
+            color: white;
+        }
+
+        .skill-stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        .skill-star {
+            width: 12px;
+            height: 12px;
+            background: #e8e4f0;
+            border-radius: 3px;
+            transform: rotate(45deg);
+        }
+
+        .skill-star.active {
+            background: var(--accent-yellow);
+        }
+
+        .skill-item:hover .skill-star.active {
+            background: white;
+        }
+
+        .skill-type {
+            padding: 5px 12px;
+            background: white;
+            border-radius: 12px;
+            font-size: 10px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(126, 200, 227, 0.2);
+        }
+
+        .skill-item:hover .skill-type {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .adventure-timeline {
+            position: relative;
+            padding-left: 45px;
+        }
+
+        .adventure-timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 15px;
+            bottom: 15px;
+            width: 5px;
+            background: linear-gradient(to bottom, var(--accent-pink), var(--accent-blue), var(--accent-purple));
+            border-radius: 3px;
+        }
+
+        .adventure-node {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 28px 32px;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-pop);
+            transition: all 0.3s ease;
+        }
+
+        .adventure-node:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .adventure-node::before {
+            content: '★';
+            position: absolute;
+            left: -40px;
+            top: 28px;
+            font-size: 18px;
+            color: var(--accent-yellow);
+        }
+
+        .adventure-node.completed::before {
+            content: '✓';
+            color: var(--accent-mint);
+        }
+
+        .adventure-node.active::before {
+            color: var(--accent-pink);
+            animation: star-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes star-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .adventure-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .adventure-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .adventure-company {
+            font-size: 14px;
+            color: var(--accent-pink);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .adventure-time {
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--accent-blue), #5bb8e0);
+            border-radius: 15px;
+            font-size: 12px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .adventure-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.85;
+            margin-top: 14px;
+        }
+
+        .adventure-desc li {
+            margin-bottom: 6px;
+            padding-left: 5px;
+        }
+
+        .adventure-tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .adventure-tag {
+            padding: 5px 14px;
+            background: var(--bg-sky);
+            border-radius: 12px;
+            font-size: 11px;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .dungeon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .dungeon-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-pop);
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dungeon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+        }
+
+        .dungeon-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .dungeon-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .dungeon-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .dungeon-difficulty {
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .dungeon-difficulty.ssr {
+            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
+            color: white;
+        }
+
+        .dungeon-difficulty.sr {
+            background: linear-gradient(135deg, var(--accent-purple), #9b6eb8);
+            color: white;
+        }
+
+        .dungeon-difficulty.r {
+            background: linear-gradient(135deg, var(--accent-blue), #5bb8e0);
+            color: white;
+        }
+
+        .dungeon-objective {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 22px;
+            line-height: 1.8;
+        }
+
+        .dungeon-objective li {
+            margin-bottom: 5px;
+        }
+
+        .dungeon-rewards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .dungeon-reward {
+            padding: 18px;
+            background: var(--bg-sky);
+            border-radius: var(--border-radius-sm);
+            text-align: center;
+        }
+
+        .dungeon-reward-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent-pink);
+        }
+
+        .dungeon-reward-label {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-pop);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 25px;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .gallery-item-icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .gallery-item-name {
+            font-size: 13px;
+            color: var(--text-dark);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .gallery-rarity {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .gallery-rarity.ssr {
+            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
+            color: white;
+        }
+
+        .gallery-rarity.sr {
+            background: linear-gradient(135deg, var(--accent-purple), #9b6eb8);
+            color: white;
+        }
+
+        .gallery-rarity.r {
+            background: linear-gradient(135deg, var(--accent-blue), #5bb8e0);
+            color: white;
+        }
+
+        .footer {
+            background: white;
+            padding: 55px 50px;
+            text-align: center;
+            margin-top: 60px;
+            box-shadow: 0 -6px 25px rgba(126, 200, 227, 0.15);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '✦ ✦ ✦';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: var(--accent-pink);
+            letter-spacing: 12px;
+        }
+
+        .footer-text {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .footer-btn {
+            padding: 14px 45px;
+            background: linear-gradient(135deg, var(--accent-pink), #ff6b9d);
+            border: none;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: inherit;
+            box-shadow: 0 6px 20px rgba(255, 143, 174, 0.4);
+        }
+
+        .footer-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 143, 174, 0.5);
+        }
+
+        .footer-copyright {
+            margin-top: 30px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 950px) {
+            .character-panel {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .avatar-section {
+                margin-bottom: 15px;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dungeon-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 35px 22px;
+            }
+
+            .page-title {
+                font-size: 21px;
+            }
+
+            .nav {
+                padding: 0 22px;
+            }
+
+            .character-panel {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 漫画装饰 -->
+    <div class="manga-decor">
+        <span class="manga-star">★</span>
+        <span class="manga-star">★</span>
+        <span class="manga-star">★</span>
+        <span class="manga-star">★</span>
+        <span class="manga-heart" style="top: 15%; right: 15%;">♥</span>
+        <span class="manga-heart" style="bottom: 30%; left: 8%;">♥</span>
+    </div>
+
+    <div class="page-loading" id="loadingPage">
+        <div class="loading-avatar">
+            <div class="loading-avatar-inner">周</div>
+        </div>
+        <div class="loading-title">欢迎来到我的世界 ✦</div>
+        <div class="loading-subtitle">正在加载个人档案...</div>
+        <div class="progress-box">
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">0%</div>
+        </div>
+        <button class="start-btn" id="startBtn">开始探索 ✦</button>
+    </div>
+
+    <div class="main-container" id="mainContainer">
+        <nav class="nav">
+            <div class="nav-logo">ZYL ✦</div>
+            <div class="nav-links">
+                <a class="nav-link active" data-page="character">角色档案</a>
+                <a class="nav-link" data-page="skills">天赋技能</a>
+                <a class="nav-link" data-page="adventure">冒险历程</a>
+                <a class="nav-link" data-page="dungeon">副本任务</a>
+                <a class="nav-link" data-page="gallery">作品图鉴</a>
+            </div>
+        </nav>
+
+        <!-- 1. 角色档案页 -->
+        <div class="page active" id="page-character">
+            <h1 class="page-title">角色信息</h1>
+
+            <div class="character-panel">
+                <div class="avatar-section">
+                    <div class="avatar-frame">
+                        <span class="avatar-char">周</span>
+                    </div>
+                    <div class="badges">
+                        <span class="badge">应届生</span>
+                        <span class="badge blue">AI产品</span>
+                        <span class="badge purple">211本科</span>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="stat-row">
+                        <div class="stat-icon">👤</div>
+                        <div class="stat-content">
+                            <div class="stat-label">角色名称</div>
+                            <div class="stat-value">周颖玲</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-row">
+                        <div class="stat-icon">📱</div>
+                        <div class="stat-content">
+                            <div class="stat-label">联络频道</div>
+                            <div class="stat-value">193-0700-6878</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-row">
+                        <div class="stat-icon">✉</div>
+                        <div class="stat-content">
+                            <div class="stat-label">邮箱</div>
+                            <div class="stat-value">z910ling@163.com</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-row">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-label">职业定位</div>
+                            <div class="stat-value">产品经理 / AI产品 / 商业产品 / 策略产品</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-row">
+                        <div class="stat-icon">🏫</div>
+                        <div class="stat-content">
+                            <div class="stat-label">毕业院校</div>
+                            <div class="stat-value">南昌大学（211）| 工商管理</div>
+                        </div>
+                    </div>
+
+                    <div class="intro-text">
+                        具备产品思维与AI产品设计能力的应届生，深度参与过培训数字人平台全流程建设，聚焦金融业务场景下的AI产品设计。从需求分析到产品落地，从竞品拆解到能力引入具备完整的产品实战经验。擅长AIGC、数字人等AI产品设计。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 技能页 -->
+        <div class="page" id="page-skills">
+            <h1 class="page-title">天赋技能</h1>
+
+            <div class="skills-container">
+                <!-- AI能力 -->
+                <div class="skill-category" data-category="✦ AI能力">
+                    <div class="skill-tree">
+                        <div class="skill-item">
+                            <div class="skill-icon">🤖</div>
+                            <div class="skill-info">
+                                <div class="skill-name">Prompt工程</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.9</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">主动</span>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon">🧠</div>
+                            <div class="skill-info">
+                                <div class="skill-name">AI技术原理</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.8</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">被动</span>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon">🛠</div>
+                            <div class="skill-info">
+                                <div class="skill-name">技术实现认知</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.7</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">被动</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI产品 -->
+                <div class="skill-category" data-category="✦ AI产品">
+                    <div class="skill-tree">
+                        <div class="skill-item">
+                            <div class="skill-icon">🎨</div>
+                            <div class="skill-info">
+                                <div class="skill-name">AIGC产品设计</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.8</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">主动</span>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon">🎭</div>
+                            <div class="skill-info">
+                                <div class="skill-name">数字人产品</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.8</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">主动</span>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon">🖼</div>
+                            <div class="skill-info">
+                                <div class="skill-name">多模态产品</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.7</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">被动</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 产品能力 -->
+                <div class="skill-category" data-category="✦ 产品能力">
+                    <div class="skill-tree">
+                        <div class="skill-item">
+                            <div class="skill-icon">💡</div>
+                            <div class="skill-info">
+                                <div class="skill-name">产品思维</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.9</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">主动</span>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon">📊</div>
+                            <div class="skill-info">
+                                <div class="skill-name">需求分析</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.8</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">主动</span>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon">🔍</div>
+                            <div class="skill-info">
+                                <div class="skill-name">竞品分析</div>
+                                <div class="skill-level">
+                                    <span class="skill-level-text">Lv.8</span>
+                                    <div class="skill-stars">
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star active"></span>
+                                        <span class="skill-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="skill-type">主动</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 冒险历程页 -->
+        <div class="page" id="page-adventure">
+            <h1 class="page-title">冒险历程</h1>
+
+            <div class="adventure-timeline">
+                <div class="adventure-node active">
+                    <div class="adventure-header">
+                        <div class="adventure-title">【就业】马上消费</div>
+                        <div class="adventure-time">2025.07 - 2026.01</div>
+                    </div>
+                    <div class="adventure-company">产品经理</div>
+                    <ul class="adventure-desc">
+                        <li>深度参与"培训数字人平台"建设，聚焦金融业务员工培训标准化与规模化难题</li>
+                        <li>识别"培训周期长、讲师依赖强、知识更新滞后"三大核心痛点</li>
+                        <li>参与大模型能力选型与集成，搭建"LLM+TTS+ASR+数字人驱动"多模态架构</li>
+                        <li>设计课程生产、审核、发布、学习闭环流程</li>
+                    </ul>
+                    <div class="adventure-tags">
+                        <span class="adventure-tag">AI产品</span>
+                        <span class="adventure-tag">数字人</span>
+                        <span class="adventure-tag">RAG</span>
+                    </div>
+                </div>
+
+                <div class="adventure-node completed">
+                    <div class="adventure-header">
+                        <div class="adventure-title">【实习】达利食品集团</div>
+                        <div class="adventure-time">2024.12 - 2025.04</div>
+                    </div>
+                    <div class="adventure-company">产品运营</div>
+                    <ul class="adventure-desc">
+                        <li>聚焦南昌大学校园年轻用户群体，搭建校园用户触达与转化路径</li>
+                        <li>策划校园主题运营活动，线下覆盖1000+人次，线上触达30000+人</li>
+                        <li>使用AIGC生成技术产出视觉物料与场景化种草文案</li>
+                        <li>协调校内场地、社团及KOL资源，优化资源分配</li>
+                    </ul>
+                    <div class="adventure-tags">
+                        <span class="adventure-tag">校园运营</span>
+                        <span class="adventure-tag">AIGC</span>
+                    </div>
+                </div>
+
+                <div class="adventure-node completed">
+                    <div class="adventure-header">
+                        <div class="adventure-title">【在校】南昌大学</div>
+                        <div class="adventure-time">2022.09 - 2026.06</div>
+                    </div>
+                    <div class="adventure-company">工商管理（本科）</div>
+                    <ul class="adventure-desc">
+                        <li>南昌大学（211）工商管理专业本科</li>
+                        <li>具备系统的管理学知识背景</li>
+                    </ul>
+                    <div class="adventure-tags">
+                        <span class="adventure-tag">211本科</span>
+                        <span class="adventure-tag">管理学</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 副本任务页 -->
+        <div class="page" id="page-dungeon">
+            <h1 class="page-title">副本挑战</h1>
+
+            <div class="dungeon-grid">
+                <div class="dungeon-card">
+                    <div class="dungeon-header">
+                        <div class="dungeon-name">✦ 培训数字人平台</div>
+                        <span class="dungeon-difficulty ssr">核心项目</span>
+                    </div>
+                    <div class="dungeon-objective">
+                        <li>负责产品全流程设计，构建智能培训体系</li>
+                        <li>搭建"LLM+TTS+ASR+数字人驱动"架构</li>
+                        <li>引入RAG知识库增强</li>
+                    </div>
+                    <div class="dungeon-rewards">
+                        <div class="dungeon-reward">
+                            <div class="dungeon-reward-value">120+</div>
+                            <div class="dungeon-reward-label">标准化课程</div>
+                        </div>
+                        <div class="dungeon-reward">
+                            <div class="dungeon-reward-value">4倍</div>
+                            <div class="dungeon-reward-label">生产效率</div>
+                        </div>
+                        <div class="dungeon-reward">
+                            <div class="dungeon-reward-value">-40%</div>
+                            <div class="dungeon-reward-label">培训成本</div>
+                        </div>
+                        <div class="dungeon-reward">
+                            <div class="dungeon-reward-value">92%</div>
+                            <div class="dungeon-reward-label">课程完课率</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dungeon-card">
+                    <div class="dungeon-header">
+                        <div class="dungeon-name">✦ 校园反诈AI小程序</div>
+                        <span class="dungeon-difficulty sr">竞赛项目</span>
+                    </div>
+                    <div class="dungeon-objective">
+                        <li>中国国际大学生创新大赛参赛项目</li>
+                        <li>AI反诈科普+风险识别+实时预警</li>
+                        <li>完成产品全流程规划与开发</li>
+                    </div>
+                    <div class="dungeon-rewards">
+                        <div class="dungeon-reward">
+                            <div class="dungeon-reward-value">路演</div>
+                            <div class="dungeon-reward-label">完成展示</div>
+                        </div>
+                        <div class="dungeon-reward">
+                            <div class="dungeon-reward-value">完整</div>
+                            <div class="dungeon-reward-label">产品原型</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dungeon-card">
+                    <div class="dungeon-header">
+                        <div class="dungeon-name">✦ 校园产品运营</div>
+                        <span class="dungeon-difficulty r">运营项目</span>
+                    </div>
+                    <div class="dungeon-objective">
+                        <li>达利食品集团校园运营项目</li>
+                        <li>线上线下联动推广</li>
+                        <li>AIGC内容生成</li>
+                    </div>
+                    <div class="dungeon-rewards">
+                        <div class="dungeon-reward">
+                            <div class="dungeon-reward-value">1000+</div>
+                            <div class="dungeon-reward-label">线下人次</div>
+                        </div>
+                        <div class="dungeon-reward">
+                            <div class="dungeon-reward-value">30000+</div>
+                            <div class="dungeon-reward-label">线上触达</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 作品图鉴页 -->
+        <div class="page" id="page-gallery">
+            <h1 class="page-title">作品图鉴</h1>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <span class="gallery-rarity ssr">稀有</span>
+                    <div class="gallery-item-icon">🤖</div>
+                    <div class="gallery-item-name">培训数字人平台</div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-rarity ssr">稀有</span>
+                    <div class="gallery-item-icon">🔒</div>
+                    <div class="gallery-item-name">反诈AI小程序</div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-rarity sr">精选</span>
+                    <div class="gallery-item-icon">📊</div>
+                    <div class="gallery-item-name">竞品报告</div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-rarity sr">精选</span>
+                    <div class="gallery-item-icon">📝</div>
+                    <div class="gallery-item-name">PRD文档</div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-rarity r">普通</span>
+                    <div class="gallery-item-icon">🎨</div>
+                    <div class="gallery-item-name">产品原型</div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-rarity r">普通</span>
+                    <div class="gallery-item-icon">📋</div>
+                    <div class="gallery-item-name">需求规格</div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-rarity r">普通</span>
+                    <div class="gallery-item-icon">🖼</div>
+                    <div class="gallery-item-name">AIGC物料</div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-rarity r">普通</span>
+                    <div class="gallery-item-icon">📌</div>
+                    <div class="gallery-item-name">更多作品</div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-text">旅程暂告一段落，期待组队合作 ✦</div>
+            <a href="#" class="footer-btn" onclick="location.reload()">返回主城 ✦</a>
+            <div class="footer-copyright">© 2026 周颖玲 · 个人主页</div>
+        </footer>
+    </div>
+
+    <script>
+        const loadingPage = document.getElementById('loadingPage');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const startBtn = document.getElementById('startBtn');
+        const mainContainer = document.getElementById('mainContainer');
+
+        let progress = 0;
+
+        function updateProgress() {
+            progress += Math.random() * 12 + 3;
+            if (progress >= 100) {
+                progress = 100;
+                progressBar.style.width = '100%';
+                progressText.textContent = '100% ✦';
+                startBtn.classList.add('visible');
+                return;
+            }
+
+            progressBar.style.width = progress + '%';
+            progressText.textContent = Math.floor(progress) + '%';
+            setTimeout(updateProgress, 250 + Math.random() * 150);
+        }
+
+        setTimeout(updateProgress, 400);
+
+        startBtn.addEventListener('click', function() {
+            loadingPage.classList.add('hidden');
+            mainContainer.classList.add('visible');
+            setTimeout(() => {
+                loadingPage.style.display = 'none';
+            }, 600);
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    if (page.id === 'page-' + pageId) {
+                        page.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
